@@ -9,11 +9,16 @@ import cartes.JeuDeCartes;
 import utils.GestionCartes;
 
 public class Jeu {
+	
+	private Sabot sabot;
+	
 	public Jeu() {
-		List<Carte> listeCartes = new ArrayList<>();
-		Collections.addAll(listeCartes, new JeuDeCartes().donnerCartes());
-		listeCartes = GestionCartes.melanger(listeCartes);
-		Carte[] arrayCartes = listeCartes.toArray(new Carte[0]);
-  		new Sabot(arrayCartes);
+  		
+  		JeuDeCartes jeuDeCartes = new JeuDeCartes();
+  		Carte[] cartes = jeuDeCartes.donnerCartes();
+  		List<Carte> listeCartes = new ArrayList<>();
+  		Collections.addAll(listeCartes, cartes);
+  		listeCartes = GestionCartes.melanger(listeCartes);
+  		sabot = new Sabot(listeCartes.toArray(new Carte[0]));
 	}
 }

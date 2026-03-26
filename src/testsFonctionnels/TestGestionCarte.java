@@ -12,6 +12,7 @@ public class TestGestionCarte {
 
 	public static void main(String[] args) {
 		JeuDeCartes jeu = new JeuDeCartes();
+		System.out.println();
 		List<Carte> listeCarteNonMelangee = new LinkedList<>();
 		for (Carte carte : jeu.donnerCartes()) {
 			listeCarteNonMelangee.add(carte);
@@ -22,9 +23,9 @@ public class TestGestionCarte {
 		System.out.println(listeCartes);
 		System.out.println(
 				"liste mélangée sans erreur ? " + GestionCartes.verifierMelange(listeCarteNonMelangee, listeCartes));
-//		listeCartes = GestionCartes.rassemberV2(listeCartes);
-//		System.out.println(listeCartes);
-//		System.out.println("liste rassemblée sans erreur ? " + GestionCartes.verifierRassemblement(listeCartes));
+		listeCartes = GestionCartes.rassembler(listeCartes);
+		System.out.println(listeCartes);
+		System.out.println("liste rassemblée sans erreur ? " + GestionCartes.verifierRassemblement(listeCartes));
 
 	}
 

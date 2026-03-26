@@ -26,6 +26,33 @@ public class JeuDeCartes {
 	public static final int NB_DEBUT_LIMITE = 6;
 	public static final int NB_FIN_LIMITE = 4;
 
+	private Configuration[] typesDeCartes = {
+			// Kms
+			new Configuration(new Borne(25), NB_BORNE_25), new Configuration(new Borne(50), NB_BORNE_50),
+			new Configuration(new Borne(75), NB_BORNE_75), new Configuration(new Borne(100), NB_BORNE_100),
+			new Configuration(new Borne(200), NB_BORNE_200),
+
+			// Parades
+			new Configuration(new Parade(Type.FEU), NB_PARADE_FEU),
+			new Configuration(new Parade(Type.ESSENCE), NB_PARADE_ESSENCE),
+			new Configuration(new Parade(Type.CREVAISON), NB_PARADE_CREVAISON),
+			new Configuration(new Parade(Type.ACCIDENT), NB_PARADE_ACCIDENT),
+
+			// Attaques
+			new Configuration(new Attaque(Type.FEU), NB_ATTAQUE_FEU),
+			new Configuration(new Attaque(Type.ESSENCE), NB_ATTAQUE_ESSENCE),
+			new Configuration(new Attaque(Type.CREVAISON), NB_ATTAQUE_CREVAISON),
+			new Configuration(new Attaque(Type.ACCIDENT), NB_ATTAQUE_ACCIDENT),
+
+			// Bottes
+			new Configuration(new Botte(Type.FEU), NB_BOTTE_FEU),
+			new Configuration(new Botte(Type.ESSENCE), NB_BOTTE_ESSENCE),
+			new Configuration(new Botte(Type.CREVAISON), NB_BOTTE_CREVAISON),
+			new Configuration(new Botte(Type.ACCIDENT), NB_BOTTE_ACCIDENT),
+
+			// Limites
+			new Configuration(new FinLimite(), NB_DEBUT_LIMITE), new Configuration(new DebutLimite(), NB_FIN_LIMITE) };
+
 	public String affichageJeuDeCartes() {
 		StringBuilder msgBuilder = new StringBuilder("Jeu : \n");
 
@@ -41,13 +68,13 @@ public class JeuDeCartes {
 
 	public Carte[] donnerCartes() {
 		int nbCartes = 0;
-		for(Configuration configuration : typesDeCartes) {
+		for (Configuration configuration : typesDeCartes) {
 			nbCartes += configuration.getNbExemplaire();
 		}
 		Carte[] cartes = new Carte[nbCartes];
 		int index = 0;
-		for(Configuration configuration : typesDeCartes) {
-			for(int i = 0; i < configuration.getNbExemplaire(); i++) {
+		for (Configuration configuration : typesDeCartes) {
+			for (int i = 0; i < configuration.getNbExemplaire(); i++) {
 				cartes[index] = configuration.getCarte();
 				index++;
 			}
@@ -78,36 +105,12 @@ public class JeuDeCartes {
 		return true;
 	}
 
-	private Configuration[] typesDeCartes = {
-			// Kms
-			new Configuration(new Borne(25), NB_BORNE_25), new Configuration(new Borne(50), NB_BORNE_50),
-			new Configuration(new Borne(75), NB_BORNE_75), new Configuration(new Borne(100), NB_BORNE_100),
-			new Configuration(new Borne(200), NB_BORNE_200),
-
-			// Parades
-			new Configuration(new Parade(Type.FEU), NB_PARADE_FEU),
-			new Configuration(new Parade(Type.ESSENCE), NB_PARADE_ESSENCE),
-			new Configuration(new Parade(Type.CREVAISON), NB_PARADE_CREVAISON),
-			new Configuration(new Parade(Type.ACCIDENT), NB_PARADE_ACCIDENT),
-
-			// Attaques
-			new Configuration(new Attaque(Type.FEU), NB_ATTAQUE_FEU),
-			new Configuration(new Attaque(Type.ESSENCE), NB_ATTAQUE_ESSENCE),
-			new Configuration(new Attaque(Type.CREVAISON), NB_ATTAQUE_CREVAISON),
-			new Configuration(new Attaque(Type.ACCIDENT), NB_ATTAQUE_ACCIDENT),
-
-			// Bottes
-			new Configuration(new Botte(Type.FEU), NB_BOTTE_FEU),
-			new Configuration(new Botte(Type.ESSENCE), NB_BOTTE_ESSENCE),
-			new Configuration(new Botte(Type.CREVAISON), NB_BOTTE_CREVAISON),
-			new Configuration(new Botte(Type.ACCIDENT), NB_BOTTE_ACCIDENT),
-
-			// Limites
-			new Configuration(new FinLimite(), NB_DEBUT_LIMITE), new Configuration(new DebutLimite(), NB_FIN_LIMITE) };
-
 	private static class Configuration {
 
-		public Configuration(Carte carte, int nbExemplaire) {
+		private int nbExemplaire;
+		private Carte carte;
+
+		private Configuration(Carte carte, int nbExemplaire) {
 			this.carte = carte;
 			this.nbExemplaire = nbExemplaire;
 		}
@@ -120,7 +123,5 @@ public class JeuDeCartes {
 			return nbExemplaire;
 		}
 
-		private int nbExemplaire;
-		private Carte carte;
 	}
 }

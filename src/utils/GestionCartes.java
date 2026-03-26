@@ -8,15 +8,11 @@ import java.util.ListIterator;
 import java.util.Random;
 
 public class GestionCartes {
-	private GestionCartes() {
-	}
 
+	static Random rng = new Random();
+	
 	public static <T> T extraire(List<T> collection) {
-		int index = random.nextInt(collection.size());
-		T result = collection.get(index);
-
-		collection.remove(index);
-		return result;
+		return collection.remove(rng.nextInt(collection.size()));
 	}
 
 	public static <T> T extraireIterator(List<T> collection) {
