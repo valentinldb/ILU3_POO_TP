@@ -9,12 +9,13 @@ import java.util.Random;
 
 public class GestionCartes {
 
-	static Random rng = new Random();
+	private static Random random = new Random();
 	
 	public static <T> T extraire(List<T> collection) {
-		return collection.remove(rng.nextInt(collection.size()));
+		return collection.remove(random.nextInt(collection.size()));
 	}
 
+	//TODO pas de boucle utiliser le constructeur de ListIterator
 	public static <T> T extraireIterator(List<T> collection) {
 		Iterator<T> iterator = collection.listIterator();
 		for (int i = 0; i < random.nextInt(collection.size()) - 1; i++) {
@@ -86,7 +87,5 @@ public class GestionCartes {
 		}
 		return true;
 	}
-
-	private static Random random = new Random();
 
 }
