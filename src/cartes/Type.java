@@ -1,28 +1,31 @@
 package cartes;
 
 public enum Type {
-	FEU("feu rouge", "feu vert", "prioritaire"), 
-	ESSENCE("panne d'essence", "essence", "citerne"), 
-	CREVAISON("crevaison", "roue de secours", "increvable"), 
-	ACCIDENT("accident", "réparation", "as du volant");
+	FEU("Feu Rouge", "Feu vert", "Prioritaire"), 
+	ESSENCE("Panne d'essence", "Bidon d'essence", "Citerne"), 
+	CREVAISON("Crevaison", "Roue de secours", "Increvable"), 
+	ACCIDENT("Accident", "Réparations", "As du volant");
 	
-	private Type(String affichageAttaque, String affichageParade, String affichageBotte) {
-		msgAttaque = affichageAttaque;
-		msgParade = affichageParade;
-		msgBotte = affichageBotte;
+	private String texteAttaque;
+	private String texteParade;
+	private String texteBotte;
+	
+	private Type(String texteAttaque, String texteParade, String texteBotte) {
+		this.texteAttaque = texteAttaque;
+		this.texteParade = texteParade;
+		this.texteBotte = texteBotte;
+	}
+
+	public String getTexteAttaque() {
+		return texteAttaque;
+	}
+
+	public String getTexteParade() {
+		return texteParade;
+	}
+
+	public String getTexteBotte() {
+		return texteBotte;
 	}
 	
-	public String getMsgAttaque() {
-		return msgAttaque;
-	}
-	
-	public String getMsgBotte() {
-		return msgBotte;
-	}
-	
-	public String getMsgParade() {
-		return msgParade;
-	}
-	
-	private final String msgAttaque, msgParade, msgBotte;
 }

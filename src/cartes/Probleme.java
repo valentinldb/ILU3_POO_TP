@@ -6,21 +6,22 @@ public abstract class Probleme extends Carte {
 	protected Probleme(Type type) {
 		this.type = type;
 	}
-	
+
 	public Type getType() {
 		return type;
 	}
 	
 	@Override
-	public String toString() {
-		return super.toString();
+	public boolean equals(Object obj) {
+		if (!super.equals(obj)) {
+			return false;
+		}
+		Probleme probleme = (Probleme) obj;
+		return type.equals(probleme.getType());
 	}
 	
 	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj) && ((Probleme)obj).type == type;
+	public int hashCode() {
+		return 31 * getType().hashCode();
 	}
-	
-	
-
 }

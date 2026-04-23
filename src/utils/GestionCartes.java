@@ -2,90 +2,110 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
 
 public class GestionCartes {
-
-	private static Random random = new Random();
 	
-	public static <T> T extraire(List<T> collection) {
-		return collection.remove(random.nextInt(collection.size()));
+	static Random rng = new Random();
+	
+	public static <T> T extraire(List<T> liste){
+		return liste.remove(rng.nextInt(liste.size()));
 	}
-
-	//TODO pas de boucle utiliser le constructeur de ListIterator
-	public static <T> T extraireIterator(List<T> collection) {
-		Iterator<T> iterator = collection.listIterator();
-		for (int i = 0; i < random.nextInt(collection.size()) - 1; i++) {
-			iterator.next();
+	
+	public static <T> T extraireIterateur(List<T> liste){
+		int indiceExtrait = rng.nextInt(liste.size());		
+		ListIterator<T> iter = liste.listIterator(indiceExtrait);
+		
+		T elementExtrait = iter.next();
+		iter.remove();
+		
+		return elementExtrait;
+	}
+	
+	public static <T> List<T> melanger(List<T> liste) {
+		List<T> listeMelangee = new ArrayList<>();
+		
+		while (!liste.isEmpty()) {
+			listeMelangee.add(GestionCartes.extraire(liste));
 		}
-
-		T result = iterator.next();
-		iterator.remove();
-		return result;
+		
+		return listeMelangee;
 	}
-
-	public static <T> List<T> melanger(List<T> collection) {
-		int size = collection.size();
-		List<T> result = new ArrayList<>();
-		for (int i = 0; i < size; i++) {
-			result.addLast(extraire(collection));
+	
+	public static <T> boolean verifierMelange(List<T> liste1, List<T> liste2) {
+		if (liste1.size() != liste2.size()) {
+			return false;
 		}
-		return result;
-	}
-
-	public static <T> boolean verifierMelange(List<T> l1, List<T> l2) {
-		for (T element : l1) {
-			if (Collections.frequency(l1, element) != Collections.frequency(l2, element)) {
+		
+		for (T element : liste1) {
+			if (Collections.frequency(liste1, element) != Collections.frequency(liste2, element)) {
 				return false;
 			}
 		}
+		
 		return true;
 	}
-
-	public static <T> List<T> rassembler(List<T> collection) {
-		List<T> result = new ArrayList<>();
-
-		Iterator<T> readIterator = collection.iterator();
-		while (readIterator.hasNext()) {
-			T reed = readIterator.next();
-			Iterator<T> supprIterator = collection.iterator();
-
-			while (supprIterator.hasNext()) {
-				T elem = supprIterator.next();
-				if (elem.equals(reed)) {
-					result.addLast(elem);
-					supprIterator.remove();
+	
+	public static <T> List<T> rassembler(List<T> liste){
+		if (liste.isEmpty()) {
+			return liste;
+		}
+		
+		List<T> listeRassemblee = new ArrayList<>();
+		T elementAjoute = null;
+		
+		while (listeRassemblee.size() != liste.size()) {
+			for (T element : liste) {
+				if (!listeRassemblee.contains(element)) {
+					elementAjoute = element;
+					break;
+				}
+			}
+			
+			for (T element : liste) {
+				if (element.equals(elementAjoute)){
+					listeRassemblee.add(element);
 				}
 			}
 		}
-
-		return result;
+		
+		return listeRassemblee;
 	}
-
-	public static <T> boolean verifierRassemblement(List<T> collection) {
-		if(collection.isEmpty()) {
+	
+	public static <T> boolean verifierRassemblement(List<T> liste) {
+		if (liste.isEmpty()) {
 			return true;
 		}
 		
-		ListIterator<T> firstIterator = collection.listIterator();
-		T curr = firstIterator.next();
-		while(firstIterator.hasNext()) {
-			if(!curr.equals(firstIterator.next())) {
-				int index = firstIterator.previousIndex();
-				ListIterator<T> secondIterator = collection.listIterator(index);
-				
-				while(secondIterator.hasNext()) {
-					if(secondIterator.next().equals(curr)) {
-						return false;	
+		T elementCourant = liste.get(0);
+		
+		for (ListIterator<T> iter1 = liste.listIterator(); iter1.hasNext();) {
+			T elementSuivant = iter1.next();
+			
+			if (!elementSuivant.equals(elementCourant)) {
+				for (ListIterator<T> iter2 = liste.listIterator(iter1.nextIndex()); iter2.hasNext();) {
+					if (iter2.next().equals(elementCourant)){
+						return false;
 					}
 				}
 				
+				elementCourant = elementSuivant;
 			}
 		}
+		
 		return true;
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

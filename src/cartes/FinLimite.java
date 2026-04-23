@@ -1,8 +1,10 @@
 package cartes;
 
 public class FinLimite extends Limite {
+
 	@Override
 	public String toString() {
-		return super.toString() + "fin";
-	}	
+		return "Fin Limite";
+	}
+
 }

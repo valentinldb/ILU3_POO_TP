@@ -8,6 +8,6 @@ public class Parade extends Bataille {
 	
 	@Override
 	public String toString() {
-		return super.toString() + super.getType().getMsgParade();
+		return getType().getTexteParade();
 	}
 }
